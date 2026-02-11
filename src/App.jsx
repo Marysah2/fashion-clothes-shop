@@ -1,27 +1,26 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
-import Header from './components/Header';
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
-import Admin from './pages/Admin';
+import ProductsPage from './Products/ProductsPage';
+import CartPage from './Components/CartPage';
+import CheckoutPage from './Checkout/CheckoutPage';
+import OrderSuccess from './Checkout/OrderSuccess';
+import OrderHistory from './features/orders/OrderHistory';
+import AdminOrders from './features/orders/AdminOrders';
+import AnalyticsDashboard from './features/admin/AnalyticsDashboard';
+import './index.css';
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="*" element={<div className="container mx-auto px-4 py-16 text-center"><h1 className="text-4xl font-bold">404 - Page Not Found</h1></div>} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProductsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/orders/history" element={<OrderHistory />} />
+        <Route path="/admin/analytics" element={<AnalyticsDashboard />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="*" element={<div>404</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
