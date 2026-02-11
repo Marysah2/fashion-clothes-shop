@@ -94,9 +94,9 @@ const productsSlice = createSlice({
         state.filteredItems = applyFilters(state.items, state.filters, state.sortBy);
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
-        const index = state.items.findIndex(p => p.id === action.payload.id);
-        if (index !== -1) {
-          state.items[index] = action.payload;
+        const idx = state.items.findIndex(p => p.id === action.payload.id);
+        if (idx !== -1) {
+          state.items[idx] = action.payload;
           state.filteredItems = applyFilters(state.items, state.filters, state.sortBy);
         }
       })

@@ -47,7 +47,7 @@ export default function Admin() {
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this product?')) {
+    if (window.confirm('Are you sure you want to delete this product?')) {
       dispatch(deleteProduct(id));
     }
   };

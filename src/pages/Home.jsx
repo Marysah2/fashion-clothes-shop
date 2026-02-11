@@ -12,7 +12,7 @@ export default function Home() {
     <div>
       <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-24">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-6xl font-bold mb-6 animate-fade-in">Welcome to Fashion Shop</h1>
+          <h1 className="text-6xl font-bold mb-6">Welcome to Fashion Shop</h1>
           <p className="text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
             Discover the latest trends in fashion and elevate your style
           </p>
