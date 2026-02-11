@@ -8,7 +8,8 @@ export default function CheckoutPage() {
   const items = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', email: '', address: '', city: '', zip: '' });
+  const [form, setForm] = useState({ name: '', email: '', address: '', city: '', zip: '', phone: '' });
+  const [paymentMethod, setPaymentMethod] = useState('mpesa');
   const [loading, setLoading] = useState(false);
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0) + 10;
@@ -20,6 +21,8 @@ export default function CheckoutPage() {
       const orderData = {
         shipping_address: `${form.address}, ${form.city}, ${form.zip}`,
         billing_info: `${form.name}, ${form.email}`,
+        payment_method: paymentMethod,
+        phone_number: form.phone,
         items: items.map(item => ({
           product_id: item.id,
           quantity: item.quantity,
@@ -48,8 +51,24 @@ export default function CheckoutPage() {
             <input type="text" placeholder="City" value={form.city} onChange={e => setForm({...form, city: e.target.value})} className="border p-2 cursor-text" required />
             <input type="text" placeholder="ZIP" value={form.zip} onChange={e => setForm({...form, zip: e.target.value})} className="border p-2 cursor-text" required />
           </div>
+          <div className="border-t pt-4">
+            <h3 className="font-bold mb-3">Payment Method</h3>
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="payment" value="mpesa" checked={paymentMethod === 'mpesa'} onChange={e => setPaymentMethod(e.target.value)} />
+                <span>M-Pesa</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={e => setPaymentMethod(e.target.value)} />
+                <span>Credit/Debit Card</span>
+              </label>
+            </div>
+          </div>
+          {paymentMethod === 'mpesa' && (
+            <input type="tel" placeholder="M-Pesa Phone (07XX or 254XXX)" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} className="w-full border p-2 cursor-text" required pattern="(254[0-9]{9}|0[17][0-9]{8})" />
+          )}
           <button type="submit" disabled={loading} className="w-full bg-black text-white py-2 disabled:opacity-50 cursor-pointer">
-            {loading ? 'Processing...' : 'Place Order'}
+            {loading ? 'Processing...' : paymentMethod === 'mpesa' ? 'Pay with M-Pesa' : 'Place Order'}
           </button>
         </form>
         <div className="border p-4">
