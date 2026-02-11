@@ -46,7 +46,7 @@ const AnalyticsDashboard = () => {
   if (status === 'loading') return <div>Loading...</div>;
   if (status === 'failed') return (
     <div className="analytics-error">
-      <div className="error-icon">⚠️</div>
+      <div className="error-icon"></div>
       <p>{error}</p>
       <button onClick={() => dispatch(fetchAdminAnalytics())} className="retry-btn">
         Retry
@@ -205,7 +205,7 @@ const AnalyticsDashboard = () => {
       {/* Header */}
       <div className="dashboard-header">
         <div>
-          <h1>📊 Order Analytics Dashboard</h1>
+          <h1>Order Analytics Dashboard</h1>
           <p className="dashboard-subtitle">Real-time insights into your store's performance</p>
         </div>
         <div className="time-range-selector">

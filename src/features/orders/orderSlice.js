@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import orderApi from '../../api/orderApi';
 
-// ==================== THUNKS ====================
+//THUNKS
 
 // Customer: Fetch user's order history
 export const fetchUserOrders = createAsyncThunk(
@@ -107,7 +107,7 @@ export const fetchCategoryAnalytics = createAsyncThunk(
   }
 );
 
-// ==================== SLICE ====================
+//SLICE
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -306,7 +306,7 @@ export const {
 
 export default orderSlice.reducer;
 
-// ==================== SELECTORS ====================
+//SELECTORS
 
 export const selectUserOrders = (state) => state.orders.userOrders;
 export const selectUserOrdersStatus = (state) => state.orders.userOrdersStatus;
