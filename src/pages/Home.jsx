@@ -1,69 +1,80 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTruck, faLock, faGem } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
-  const categories = [
-    { name: 'Men', icon: '👔', color: 'from-blue-500 to-blue-600' },
-    { name: 'Women', icon: '👗', color: 'from-pink-500 to-pink-600' },
-    { name: 'Kids', icon: '🧸', color: 'from-green-500 to-green-600' },
-    { name: 'Accessories', icon: '👜', color: 'from-purple-500 to-purple-600' }
-  ];
-
   return (
-    <div>
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-24">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-6xl font-bold mb-6">Welcome to Fashion Shop</h1>
-          <p className="text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Discover the latest trends in fashion and elevate your style
+    <div className="min-h-screen font-sans">
+
+      <section
+        className="relative h-screen flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="relative text-center px-6 text-white">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 uppercase tracking-widest">
+            New Season Arrivals
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Step into the latest fashion trends
           </p>
-          <Link 
-            to="/products" 
-            className="inline-block bg-white text-gray-900 px-10 py-4 rounded-lg hover:bg-gray-100 transition font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105"
+          <Link
+            to="/products"
+            className="px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition transform hover:scale-105"
           >
-            Shop Now →
+            Shop Now
           </Link>
         </div>
-      </div>
+      </section>
 
-      <div className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Shop by Category</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map(category => (
-            <Link 
-              key={category.name} 
-              to={`/products?category=${category.name}`} 
-              className={`bg-gradient-to-br ${category.color} p-10 rounded-xl text-center hover:shadow-2xl transition-all transform hover:scale-105 text-white group`}
-            >
-              <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">{category.icon}</div>
-              <h3 className="text-3xl font-bold">{category.name}</h3>
-              <p className="mt-2 text-white/80">Explore Collection</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">Why Choose Us?</h2>
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-5xl mb-4">🚚</div>
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto text-center px-6">
+          <h2 className="text-4xl font-bold mb-12 text-black">Why Choose Us?</h2>
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="flex flex-col items-center text-center p-8 border border-gray-200 rounded-xl hover:shadow-xl transition">
+              <FontAwesomeIcon icon={faTruck} className="text-5xl mb-4 text-black" />
               <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
-              <p className="text-gray-600">Get your orders delivered quickly and safely</p>
+              <p className="text-gray-700">
+                Get your orders delivered quickly and safely
+              </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-5xl mb-4">✨</div>
+            <div className="flex flex-col items-center text-center p-8 border border-gray-200 rounded-xl hover:shadow-xl transition">
+              <FontAwesomeIcon icon={faGem} className="text-5xl mb-4 text-black" />
               <h3 className="text-xl font-bold mb-2">Quality Products</h3>
-              <p className="text-gray-600">Premium quality fashion items for everyone</p>
+              <p className="text-gray-700">
+                Premium fashion items for everyone
+              </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-5xl mb-4">💳</div>
+            <div className="flex flex-col items-center text-center p-8 border border-gray-200 rounded-xl hover:shadow-xl transition">
+              <FontAwesomeIcon icon={faLock} className="text-5xl mb-4 text-black" />
               <h3 className="text-xl font-bold mb-2">Secure Payment</h3>
-              <p className="text-gray-600">Safe and secure payment processing</p>
+              <p className="text-gray-700">
+                Safe and secure payment processing
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="py-20 bg-black text-white text-center px-6">
+        <h2 className="text-4xl font-bold mb-6">Stay Updated</h2>
+        <p className="mb-8 text-gray-300 max-w-xl mx-auto">
+          Subscribe to our newsletter and never miss the latest trends
+        </p>
+        <form className="flex flex-col sm:flex-row max-w-md mx-auto gap-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="p-3 rounded-lg text-black flex-1 focus:outline-none"
+          />
+          <button className="bg-white text-black font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 transition">
+            Subscribe
+          </button>
+        </form>
+      </section>
     </div>
   );
 }
