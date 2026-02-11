@@ -107,7 +107,7 @@ const AdminOrders = () => {
   if (status === 'loading') return <div>Loading...</div>;
   if (status === 'failed') return (
     <div className="admin-orders-error">
-      <div className="error-icon">⚠️</div>
+      <div className="error-icon"></div>
       <p>{error}</p>
       <button onClick={() => dispatch(fetchAllOrders())} className="retry-btn">
         Retry
@@ -119,12 +119,12 @@ const AdminOrders = () => {
     <div className="admin-orders-container">
       <div className="admin-orders-header">
         <div>
-          <h1>📦 Order Management</h1>
+          <h1>Order Management</h1>
           <p>Manage and track all customer orders</p>
         </div>
         <div className="header-actions">
           <button className="btn-export" onClick={exportToCSV}>
-            📥 Export CSV
+            Export CSV
           </button>
         </div>
       </div>
