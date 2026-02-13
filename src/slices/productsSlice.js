@@ -1,40 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import api from '../utils/api';
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async (category) => {
-  const url = category ? `${API_URL}/products?category=${category}` : `${API_URL}/products`;
-  const response = await axios.get(url);
+  const url = category ? `/products?category=${category}` : '/products';
+  const response = await api.get(url);
   return response.data;
 });
 
 export const fetchProductById = createAsyncThunk('products/fetchProductById', async (id) => {
-  const response = await axios.get(`${API_URL}/products/${id}`);
+  const response = await api.get(`/products/${id}`);
   return response.data;
 });
 
-export const createProduct = createAsyncThunk('products/createProduct', async (productData, { getState }) => {
-  const token = getState().auth.token;
-  const response = await axios.post(`${API_URL}/products`, productData, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const createProduct = createAsyncThunk('products/createProduct', async (productData) => {
+  const response = await api.post('/products', productData);
   return response.data;
 });
 
-export const updateProduct = createAsyncThunk('products/updateProduct', async ({ id, data }, { getState }) => {
-  const token = getState().auth.token;
-  const response = await axios.put(`${API_URL}/products/${id}`, data, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const updateProduct = createAsyncThunk('products/updateProduct', async ({ id, data }) => {
+  const response = await api.put(`/products/${id}`, data);
   return response.data;
 });
 
-export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id, { getState }) => {
-  const token = getState().auth.token;
-  await axios.delete(`${API_URL}/products/${id}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+export const deleteProduct = createAsyncThunk('products/deleteProduct', async (id) => {
+  await api.delete(`/products/${id}`);
   return id;
 });
 

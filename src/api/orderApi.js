@@ -1,18 +1,8 @@
-import axios from 'axios';
-
-const getAuthHeader = () => {
-  const token = localStorage.getItem('token');
-  return {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  };
-};
+import api from '../utils/api';
 
 export const getUserOrders = async () => {
   try {
-    const response = await axios.get('/api/orders/my-orders', getAuthHeader());
+    const response = await api.get('/orders/my-orders');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch orders' };
@@ -21,7 +11,7 @@ export const getUserOrders = async () => {
 
 export const getOrderById = async (orderId) => {
   try {
-    const response = await axios.get(`/api/orders/${orderId}`, getAuthHeader());
+    const response = await api.get(`/orders/${orderId}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch order' };
@@ -36,10 +26,10 @@ export const getAllOrders = async (filters = {}) => {
     if (filters.end_date) params.append('end_date', filters.end_date);
     
     const url = params.toString() 
-      ? `/api/orders/admin/all?${params.toString()}` 
-      : '/api/orders/admin/all';
+      ? `/orders/admin/all?${params.toString()}` 
+      : '/orders/admin/all';
     
-    const response = await axios.get(url, getAuthHeader());
+    const response = await api.get(url);
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch orders' };
@@ -48,10 +38,9 @@ export const getAllOrders = async (filters = {}) => {
 
 export const updateOrderStatus = async (orderId, status) => {
   try {
-    const response = await axios.patch(
-      `/api/orders/admin/${orderId}/status`,
-      { status },
-      getAuthHeader()
+    const response = await api.patch(
+      `/orders/admin/${orderId}/status`,
+      { status }
     );
     return response.data;
   } catch (error) {
@@ -61,7 +50,7 @@ export const updateOrderStatus = async (orderId, status) => {
 
 export const getAdminAnalytics = async () => {
   try {
-    const response = await axios.get('/api/orders/admin/analytics', getAuthHeader());
+    const response = await api.get('/orders/admin/analytics');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch analytics' };
@@ -70,7 +59,7 @@ export const getAdminAnalytics = async () => {
 
 export const getTotalOrdersAnalytics = async () => {
   try {
-    const response = await axios.get('/api/orders/analytics/total', getAuthHeader());
+    const response = await api.get('/orders/analytics/total');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch total orders analytics' };
@@ -79,7 +68,7 @@ export const getTotalOrdersAnalytics = async () => {
 
 export const getRevenueAnalytics = async () => {
   try {
-    const response = await axios.get('/api/orders/analytics/revenue', getAuthHeader());
+    const response = await api.get('/orders/analytics/revenue');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch revenue analytics' };
@@ -88,7 +77,7 @@ export const getRevenueAnalytics = async () => {
 
 export const getCategoryAnalytics = async () => {
   try {
-    const response = await axios.get('/api/orders/analytics/categories', getAuthHeader());
+    const response = await api.get('/orders/analytics/categories');
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Failed to fetch category analytics' };
