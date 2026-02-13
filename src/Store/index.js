@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "../slices/authSlice";
-import productsReducer from "../Products/productsSlice";
+import productsReducer from "../slices/productsSlice";
 import cartReducer from "../Features/cart/cartSlice";
+import orderReducer from "../features/orders/orderSlice";
 
 const persistedAuth = {
   user: JSON.parse(localStorage.getItem("user") || "null"),
@@ -18,6 +19,7 @@ export const store = configureStore({
     auth: authReducer,
     products: productsReducer,
     cart: cartReducer,
+    orders: orderReducer,
   },
   preloadedState: {
     auth: persistedAuth,
