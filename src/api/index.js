@@ -1,16 +1,27 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+const api = axios.create({
+  baseURL: API_URL,
+  headers: { 'Content-Type': 'application/json' }
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 export const cartAPI = {
-  getCart: () => axios.get(`${API_URL}/cart`),
-  addItem: (item) => axios.post(`${API_URL}/cart`, item),
-  updateItem: (id, quantity) => axios.put(`${API_URL}/cart/${id}`, { quantity }),
-  removeItem: (id) => axios.delete(`${API_URL}/cart/${id}`),
-  clearCart: () => axios.delete(`${API_URL}/cart`)
+  getCart: () => api.get('/cart'),
+  addItem: (item) => api.post('/cart/add', item),
+  updateItem: (id, quantity) => api.put(`/cart/${id}`, { quantity }),
+  removeItem: (id) => api.delete(`/cart/${id}`),
+  clearCart: () => api.delete('/cart')
 };
 
 export const orderAPI = {
-  createOrder: (orderData) => axios.post(`${API_URL}/orders/`, orderData),
-  getOrder: (id) => axios.get(`${API_URL}/orders/${id}`)
+  createOrder: (orderData) => api.post('/cart/checkout', orderData),
+  getOrder: (id) => api.get(`/orders/${id}`)
 };
