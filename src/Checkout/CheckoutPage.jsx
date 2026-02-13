@@ -22,7 +22,8 @@ export default function CheckoutPage() {
         shipping_address: `${form.address}, ${form.city}, ${form.zip}`,
         billing_info: `${form.name}, ${form.email}`,
         payment_method: paymentMethod,
-        phone_number: form.phone,
+        phone_number: form.phone || '',
+        total_amount: total,
         items: items.map(item => ({
           product_id: item.id,
           quantity: item.quantity,
@@ -33,7 +34,8 @@ export default function CheckoutPage() {
       dispatch(clearCart());
       navigate('/order-success');
     } catch (error) {
-      alert('Order failed. Make sure backend is running.');
+      console.error('Order error:', error);
+      alert(error.response?.data?.message || 'Order failed. Please try again.');
     } finally {
       setLoading(false);
     }

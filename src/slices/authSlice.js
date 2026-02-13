@@ -43,7 +43,7 @@ export const refreshToken = createAsyncThunk("auth/refresh", async (_, thunkAPI)
 
 export const logoutUser = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    await api.post("/auth/logout");
+    await api.post("/auth/logout", {});
     return true;
   } catch (error) {
     return thunkAPI.rejectWithValue("Logout failed");
