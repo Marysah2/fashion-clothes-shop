@@ -38,13 +38,13 @@ export const deleteProduct = createAsyncThunk('products/deleteProduct', async (i
   return id;
 });
 
-const productsSlice = createSlice({
+  const productsSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],
     currentProduct: null,
     filteredItems: [],
-    filters: { category: '', minPrice: 0, maxPrice: 10000, size: '', material: '' },
+    filters: { category: '', minPrice: 0, maxPrice: 10000 },
     sortBy: 'name',
     loading: false,
     error: null,
@@ -59,7 +59,7 @@ const productsSlice = createSlice({
       state.filteredItems = applyFilters(state.items, state.filters, state.sortBy);
     },
     clearFilters: (state) => {
-      state.filters = { category: '', minPrice: 0, maxPrice: 10000, size: '', material: '' };
+      state.filters = { category: '', minPrice: 0, maxPrice: 10000 };
       state.filteredItems = state.items;
     },
   },
@@ -111,15 +111,7 @@ const applyFilters = (items, filters, sortBy) => {
   let filtered = [...items];
   
   if (filters.category) {
-    filtered = filtered.filter(p => p.category === filters.category);
-  }
-  if (filters.size) {
-    filtered = filtered.filter(p => p.sizes?.includes(filters.size));
-  }
-  if (filters.material) {
-    filtered = filtered.filter(p => 
-      p.material?.toLowerCase().includes(filters.material.toLowerCase())
-    );
+    filtered = filtered.filter(p => p.category_name === filters.category);
   }
   filtered = filtered.filter(p => 
     p.price >= filters.minPrice && p.price <= filters.maxPrice

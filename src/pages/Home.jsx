@@ -4,7 +4,7 @@ export default function Home() {
   const categories = [
     { name: 'Men', icon: '👔', color: 'from-blue-500 to-blue-600' },
     { name: 'Women', icon: '👗', color: 'from-pink-500 to-pink-600' },
-    { name: 'Kids', icon: '🧸', color: 'from-green-500 to-green-600' },
+    { name: 'Children', icon: '🧸', color: 'from-green-500 to-green-600' },
     { name: 'Accessories', icon: '👜', color: 'from-purple-500 to-purple-600' }
   ];
 
