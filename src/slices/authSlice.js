@@ -43,10 +43,7 @@ export const refreshToken = createAsyncThunk("auth/refresh", async (_, thunkAPI)
 
 export const logoutUser = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    const access_token = localStorage.getItem("access_token");
-    await api.post("/auth/logout", null, {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
+    await api.post("/auth/logout");
     return true;
   } catch (error) {
     return thunkAPI.rejectWithValue("Logout failed");
