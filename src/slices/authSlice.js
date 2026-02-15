@@ -24,7 +24,12 @@ export const loginUser = createAsyncThunk(
       }
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || "Login failed");
+      console.error("Login error:", error);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 
+        error.message || 
+        "Login failed. Check if backend is running."
+      );
     }
   }
 );
@@ -123,10 +128,7 @@ const authSlice = createSlice({
         state.refreshToken = null;
         state.selectedRole = null;
 
-        localStorage.removeItem("user");
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("selectedRole");
+        localStorage.clear();
 
         state.responseMsg = { type: "success", text: "Logged out successfully" };
       });

@@ -23,7 +23,12 @@ const Auth = () => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (user || storedUser) {
-      navigate("/");
+      const currentUser = user || storedUser;
+      if (currentUser.role === "admin") {
+        navigate("/admin/analytics");
+      } else {
+        navigate("/home");
+      }
     }
   }, [user, navigate]);
 
@@ -45,7 +50,11 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!selectedRole) return alert("Please select a role first.");
+    if (!selectedRole) {
+      alert("Please select a role first.");
+      navigate("/select-role");
+      return;
+    }
     if (isLogin) {
       dispatch(loginUser({ email, password, role: selectedRole }));
     } else {
