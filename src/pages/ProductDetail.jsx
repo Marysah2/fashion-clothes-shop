@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductById } from '../slices/productsSlice';
+import { addToCart } from '../slices/cartSlice';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -14,6 +15,10 @@ export default function ProductDetail() {
     dispatch(fetchProductById(id));
   }, [id, dispatch]);
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
+
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-16 flex justify-center">
@@ -22,7 +27,7 @@ export default function ProductDetail() {
     );
   }
 
-  const images = product.images || [product.image || 'https://via.placeholder.com/600'];
+  const images = product.images || [product.image_url || 'https://via.placeholder.com/600'];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -62,7 +67,7 @@ export default function ProductDetail() {
         <div>
           <div className="mb-2">
             <span className="inline-block bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full">
-              {product.category}
+              {product.category_name}
             </span>
           </div>
           <h1 className="text-4xl font-bold mb-3 text-gray-900">{product.name}</h1>
@@ -75,27 +80,17 @@ export default function ProductDetail() {
             </p>
           </div>
 
-          {product.material && (
-            <div className="mb-6 pb-6 border-b">
-              <h2 className="font-semibold text-lg mb-2 text-gray-800">Material</h2>
-              <p className="text-gray-600">{product.material}</p>
-            </div>
-          )}
-
-          {product.sizes && product.sizes.length > 0 && (
-            <div className="mb-6">
-              <h2 className="font-semibold text-lg mb-3 text-gray-800">Available Sizes</h2>
-              <div className="flex gap-3 flex-wrap">
-                {product.sizes.map(size => (
-                  <span 
-                    key={size} 
-                    className="px-4 py-2 border-2 border-gray-300 rounded-lg font-medium text-gray-700"
-                  >
-                    {size}
-                  </span>
-                ))}
-              </div>
-            </div>
+          {product.stock > 0 ? (
+            <button
+              onClick={handleAddToCart}
+              className="w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg"
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <button disabled className="w-full bg-gray-400 text-white py-4 rounded-lg cursor-not-allowed font-bold text-lg">
+              Out of Stock
+            </button>
           )}
         </div>
       </div>

@@ -11,8 +11,12 @@ export default function Products() {
 
   useEffect(() => {
     const category = searchParams.get('category');
-    dispatch(fetchProducts(category));
-    if (category) dispatch(setFilters({ category }));
+    dispatch(fetchProducts());
+    if (category) {
+      dispatch(setFilters({ category }));
+    } else {
+      dispatch(clearFilters());
+    }
   }, [searchParams, dispatch]);
 
   const handleFilterChange = (e) => {
@@ -35,27 +39,9 @@ export default function Products() {
                 <option value="">All Categories</option>
                 <option value="Men">Men</option>
                 <option value="Women">Women</option>
-                <option value="Kids">Kids</option>
+                <option value="Children">Children</option>
                 <option value="Accessories">Accessories</option>
               </select>
-            </div>
-
-            <div className="mb-5">
-              <label className="block text-sm font-semibold mb-2 text-gray-700">Size</label>
-              <select name="size" value={filters.size} onChange={handleFilterChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option value="">All Sizes</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="XXL">XXL</option>
-              </select>
-            </div>
-
-            <div className="mb-5">
-              <label className="block text-sm font-semibold mb-2 text-gray-700">Material</label>
-              <input name="material" value={filters.material} onChange={handleFilterChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., Cotton, Silk" />
             </div>
 
             <div className="mb-5">
