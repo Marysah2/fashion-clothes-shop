@@ -11,8 +11,9 @@ const Navbar = () => {
   const user = useSelector((state) => state.auth.user);
 
   const handleLogout = () => {
+    localStorage.clear();
     dispatch(logoutUser());
-    navigate("/select-role");
+    window.location.href = "/auth";
   };
 
   return (

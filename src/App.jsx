@@ -26,10 +26,10 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={user ? <Navigate to="/home" /> : <Navigate to="/select-role" />}
+          element={user ? <Navigate to="/home" /> : <Navigate to="/auth" />}
         />
-        <Route path="/select-role" element={<SelectRole />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/select-role" element={user ? <Navigate to="/home" /> : <SelectRole />} />
+        <Route path="/auth" element={user ? <Navigate to="/home" /> : <Auth />} />
         <Route
           path="/home"
           element={

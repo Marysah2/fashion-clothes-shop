@@ -15,19 +15,26 @@ const Auth = () => {
   const selectedRole = useSelector((state) => state.auth.selectedRole);
   const responseMsg = useSelector((state) => state.auth.responseMsg);
   const user = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
 
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (user || storedUser) {
-      const currentUser = user || storedUser;
-      if (currentUser.role === "admin") {
-        navigate("/admin/analytics");
-      } else {
-        navigate("/home");
+    const storedUser = localStorage.getItem("user");
+    if (storedUser && storedUser !== "null") {
+      try {
+        const currentUser = JSON.parse(storedUser);
+        if (currentUser && currentUser.role) {
+          if (currentUser.role === "admin") {
+            navigate("/admin/analytics");
+          } else {
+            navigate("/home");
+          }
+        }
+      } catch (e) {
+        localStorage.clear();
       }
     }
   }, [user, navigate]);
@@ -52,7 +59,6 @@ const Auth = () => {
     e.preventDefault();
     if (!selectedRole) {
       alert("Please select a role first.");
-      navigate("/select-role");
       return;
     }
     if (isLogin) {
@@ -72,12 +78,12 @@ const Auth = () => {
     >
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      <div className="relative z-10 bg-black text-white w-full max-w-md p-10 rounded-3xl shadow-2xl transform transition duration-300 hover:-translate-y-2">
+      <div className="relative z-10 bg-black text-white w-full max-w-md p-10 rounded-3xl shadow-2xl">
         <button
           onClick={() => navigate("/select-role")}
-          className="absolute top-5 left-5 text-sm font-semibold hover:-translate-x-1 transition-transform"
+          className="text-sm font-semibold hover:underline mb-4 text-center block"
         >
-          ← Back
+          Select Role First →
         </button>
 
         <h1 className="text-3xl font-bold text-center mb-2 tracking-wide">
@@ -133,9 +139,10 @@ const Auth = () => {
 
           <button
             type="submit"
-            className="mt-2 py-3 rounded-xl bg-white text-black font-bold uppercase tracking-wide transition-all duration-300 hover:bg-black hover:text-white hover:border hover:border-white hover:scale-105"
+            disabled={loading}
+            className="mt-2 py-3 rounded-xl bg-white text-black font-bold uppercase tracking-wide transition-all duration-300 hover:bg-black hover:text-white hover:border hover:border-white hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLogin ? "Login" : "Register"}
+            {loading ? "Loading..." : (isLogin ? "Login" : "Register")}
           </button>
         </form>
 
