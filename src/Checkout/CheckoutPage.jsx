@@ -16,6 +16,12 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (paymentMethod === 'mpesa' && !form.phone) {
+      alert('Please enter your M-Pesa phone number');
+      return;
+    }
+    
     setLoading(true);
     try {
       const orderData = {
@@ -30,12 +36,14 @@ export default function CheckoutPage() {
           price: item.price
         }))
       };
+      console.log('Sending order:', orderData);
       await orderAPI.createOrder(orderData);
       dispatch(clearCart());
       navigate('/order-success');
     } catch (error) {
       console.error('Order error:', error);
-      alert(error.response?.data?.message || 'Order failed. Please try again.');
+      console.error('Error details:', error.response?.data);
+      alert(error.response?.data?.message || error.response?.data?.error || 'Order failed. Please try again.');
     } finally {
       setLoading(false);
     }

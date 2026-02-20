@@ -7,13 +7,13 @@ export default function Home() {
     <div className="min-h-screen font-sans">
 
       <section
-        className="relative h-screen flex items-center justify-center bg-cover bg-center"
+        className="relative h-screen flex items-center justify-center bg-cover bg-center bg-gray-900"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+            "url('https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative text-center px-6 text-white">
           <h1 className="text-5xl md:text-6xl font-extrabold mb-4 uppercase tracking-widest">
             New Season Arrivals

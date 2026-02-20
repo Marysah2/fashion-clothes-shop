@@ -43,6 +43,30 @@ const Navbar = () => {
           >
             <FontAwesomeIcon icon={faShoppingCart} /> Cart
           </Link>
+          {user?.role === 'admin' && (
+            <>
+              <Link
+                to="/admin/analytics"
+                className="flex items-center gap-1 font-medium px-2 py-1 rounded hover:bg-white hover:text-black transition"
+              >
+                Analytics
+              </Link>
+              <Link
+                to="/admin/orders"
+                className="flex items-center gap-1 font-medium px-2 py-1 rounded hover:bg-white hover:text-black transition"
+              >
+                Orders
+              </Link>
+            </>
+          )}
+          {user && (
+            <Link
+              to="/orders/history"
+              className="flex items-center gap-1 font-medium px-2 py-1 rounded hover:bg-white hover:text-black transition"
+            >
+              My Orders
+            </Link>
+          )}
           {user && (
             <button
               onClick={handleLogout}
